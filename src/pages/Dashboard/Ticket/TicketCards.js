@@ -2,15 +2,14 @@ import StepLetter from "../../../layouts/StepLetter";
 import styled from "styled-components";
 import { Typography } from "@material-ui/core";
 
-export default function TicketCards({ ticketInfo, title }) {
-  const { userTicketType } = ticketInfo;
-  
-  // Mock Ticket Tipes
+export default function TicketCards({ title }) {
+  //mock dos tipos de ticket
+  const userTicketType = { id: 0, name: "Presencial" };
   const ticketTypes = [
     { id: 0, name: "Presencial", price: 250 },
     { id: 1, name: "Online", price: 100 }
   ];
-  
+  //fim dos mocks dos tipos
   return (
     <>
       <StepLetter>{title}</StepLetter>
