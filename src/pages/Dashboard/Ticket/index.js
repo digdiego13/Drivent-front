@@ -1,24 +1,16 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useTicket } from "../../../contexts/TicketContext";
 import SessionLetter from "../../../layouts/SessionLetter";
-import PaymentStep from "./PaymentStep";
+import TicketCards from "./TicketCards";
 export default function Ticket() {
-  const [ticketInfo, setTicketInfo] = useState({});
-
-  //CRIANDO MOCK DO TICKETINFO
-  useEffect(() => {
-    setTicketInfo({
-      ...ticketInfo,
-      ticketType: "Presencial",
-      thereIsHotel: false,
-      totalPrice: 345,
-    });
-  }, []);
+  const { ticketInfo } = useTicket();
 
   return (
     <>
       <SessionLetter>Ingresso e Pagamento</SessionLetter>
-      <PaymentStep ticketInfo={ticketInfo}></PaymentStep>
+      <TicketCards
+        ticketInfo={ticketInfo}
+        title='Primeiro, escolha sua modalidade de ingresso'
+      />
     </>
   );
 }

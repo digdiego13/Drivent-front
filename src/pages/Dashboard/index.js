@@ -18,6 +18,7 @@ import Hotel from "./Hotel";
 import Activities from "./Activities";
 import Certificate from "./Certificate";
 import Ticket from "./Ticket";
+import TicketContext from "../../contexts/TicketContext";
 
 export default function Dashboard() {
   const { eventInfo } = useContext(EventInfoContext);
@@ -32,14 +33,16 @@ export default function Dashboard() {
           <Route path={`${match.path}/subscription`} exact>
             <FillSubscription />
           </Route>
+          
+          <TicketContext>
+            <Route path={`${match.path}/ticket`} exact>
+              <Ticket />
+            </Route>
 
-          <Route path={`${match.path}/ticket`} exact>
-            <Ticket />
-          </Route>
-
-          <Route path={`${match.path}/payment`} exact>
-            <Payment />
-          </Route>
+            <Route path={`${match.path}/payment`} exact>
+              <Payment />
+            </Route>  
+          </TicketContext>
 
           <Route path={`${match.path}/hotel`} exact>
             <Hotel />
