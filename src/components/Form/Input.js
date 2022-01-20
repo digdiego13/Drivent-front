@@ -14,4 +14,5 @@ export default function Input({ mask = "", maskChar = "", formatChars, variant =
 
 const StyledTextField = styled(TextField)`
   margin-top: 8px !important;
+  border: 1px solid #C9C9C9;
 `;

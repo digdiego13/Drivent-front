@@ -17,6 +17,7 @@ import Payment from "./Payment";
 import Hotel from "./Hotel";
 import Activities from "./Activities";
 import Certificate from "./Certificate";
+import Ticket from "./Ticket";
 
 export default function Dashboard() {
   const { eventInfo } = useContext(EventInfoContext);
@@ -30,6 +31,10 @@ export default function Dashboard() {
         <Switch>
           <Route path={`${match.path}/subscription`} exact>
             <FillSubscription />
+          </Route>
+
+          <Route path={`${match.path}/ticket`} exact>
+            <Ticket />
           </Route>
 
           <Route path={`${match.path}/payment`} exact>
