@@ -14,16 +14,19 @@ const TicketContext = function({ children }) {
   //CRIANDO MOCK DO TICKETINFO
   useEffect(() => {
     setTicketInfo({
-      ...ticketInfo,
-      userTicketType: { id: 0, name: "Presencial" },
-      userThereIsHotel: false,
-      userTotalPrice: 345,
+      userTicketType: { id: 0, name: "Presencial", price: "250" },
     });
   }, []);
 
+  const updateTicket = ({ input, value }) => {
+    const newTicketInfo = { ...ticketInfo };
+    newTicketInfo[input] = value;
+    setTicketInfo(newTicketInfo);
+  };
+
   const contextValue = useMemo(() => ({
-    ticketInfo, setTicketInfo
-  }), [ticketInfo, setTicketInfo]);
+    ticketInfo, updateTicket
+  }), [ticketInfo, updateTicket]);
 
   return (
     <Context.Provider value={contextValue}>

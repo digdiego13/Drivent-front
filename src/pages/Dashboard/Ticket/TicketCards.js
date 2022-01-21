@@ -3,24 +3,25 @@ import styled from "styled-components";
 import { Typography } from "@material-ui/core";
 import { useTicket } from "../../../contexts/TicketContext";
 export default function TicketCards({ title }) {
-  const ticket = useTicket();
   //mock dos tipos de ticket
-  const { ticketInfo } = ticket;
+  const { ticketInfo, updateTicket } = useTicket();
   const ticketTypes = [
     { id: 0, name: "Presencial", price: 250 },
     { id: 1, name: "Online", price: 100 }
   ];
-  //fim dos mocks dos tipos
   return (
     <>
       <StepLetter>{title}</StepLetter>
       <TicketsCardsContainer>
         {
-          ticketTypes.map(ticketType => {
+          ticketTypes.map(type => {
             return(
-              <TicketContainer isSelected={ticketInfo.userTicketType?.id === ticketType.id}>
-                <>{`${ticketType.name}`}</>
-                <TotalPrice variant="subtitle2">{ticketType.price.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</TotalPrice>
+              <TicketContainer key={type.id}
+                isSelected={ticketInfo.userTicketType?.id === type.id}
+                onClick={() => updateTicket({ value: type, input: "userTicketType" })}
+              >
+                <>{`${type.name}`}</>
+                <TotalPrice variant="subtitle2">{type.price.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</TotalPrice>
               </TicketContainer>);
           })
         }
