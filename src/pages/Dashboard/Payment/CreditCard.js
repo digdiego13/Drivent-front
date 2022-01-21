@@ -8,8 +8,15 @@ import {
 } from "./cardUtils";
 import "react-credit-cards/es/styles-compiled.css";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 
 export default class PaymentForm extends React.Component {
+  constructor({ ticketInfo, payment }) {
+    super();
+    this.ticketInfo = ticketInfo;
+    this.payment = payment;
+  }
+
   state = {
     cvc: "",
     expiry: "",
@@ -30,6 +37,23 @@ export default class PaymentForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log(this.ticketInfo);
+    this.payment
+      .save(this.ticketInfo)
+      .then(() => {
+        alert("Pago");
+      })
+      .catch((error) => {
+        if (error.response?.data?.details) {
+          for (const detail of error.response.data.details) {
+            toast(detail);
+          }
+        } else {
+          toast("Não foi possível");
+        }
+        /* eslint-disable-next-line no-console */
+        console.log(error);
+      });
   };
 
   render() {
@@ -65,6 +89,7 @@ export default class PaymentForm extends React.Component {
               placeholder="Person Name"
               onChange={this.handleInputChange}
               onFocus={this.handleInputFocus}
+              required
             />
             <Flex>
               <InputSmall
@@ -75,6 +100,7 @@ export default class PaymentForm extends React.Component {
                 onFocus={this.handleInputFocus}
                 pattern="\d\d/\d\d"
                 format={formatExpirationDate}
+                required
               />
               <InputSmall
                 type="number"
@@ -84,6 +110,7 @@ export default class PaymentForm extends React.Component {
                 format={formatCVC}
                 onChange={this.handleInputChange}
                 onFocus={this.handleInputFocus}
+                required
               />
             </Flex>
           </form>

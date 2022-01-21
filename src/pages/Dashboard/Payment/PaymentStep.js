@@ -2,9 +2,16 @@ import StepLetter from "../../../layouts/StepLetter";
 import styled from "styled-components";
 import { Typography } from "@material-ui/core";
 import PaymentForm from "./CreditCard";
+import useApi from "../../../hooks/useApi";
 
 export default function PaymentStep({ ticketInfo }) {
+  const { payment } = useApi();
   const { ticketType, thereIsHotel, totalPrice } = ticketInfo;
+
+  if (ticketType === undefined) {
+    return <h1>Loading</h1>;
+  }
+  console.log(ticketType);
   return (
     <>
       <StepLetter>Ingresso escolhido</StepLetter>
@@ -14,7 +21,7 @@ export default function PaymentStep({ ticketInfo }) {
       </TicketContainer>
       <StepLetter>Pagamento</StepLetter>
       <Co>
-        <PaymentForm></PaymentForm>
+        <PaymentForm ticketInfo={ticketInfo} payment={payment}></PaymentForm>
       </Co>
     </>
   );
