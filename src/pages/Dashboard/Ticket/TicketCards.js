@@ -2,13 +2,9 @@ import StepLetter from "../../../layouts/StepLetter";
 import styled from "styled-components";
 import { Typography } from "@material-ui/core";
 import { useTicket } from "../../../contexts/TicketContext";
-export default function TicketCards({ title }) {
+export default function TicketCards({ title, ticketTypes, ticketReference }) {
   //mock dos tipos de ticket
   const { ticketInfo, updateTicket } = useTicket();
-  const ticketTypes = [
-    { id: 0, name: "Presencial", price: 250 },
-    { id: 1, name: "Online", price: 100 }
-  ];
   return (
     <>
       <StepLetter>{title}</StepLetter>
@@ -17,8 +13,8 @@ export default function TicketCards({ title }) {
           ticketTypes.map(type => {
             return(
               <TicketContainer key={type.id}
-                isSelected={ticketInfo.userTicketType?.id === type.id}
-                onClick={() => updateTicket({ value: type, input: "userTicketType" })}
+                isSelected={ticketInfo[ticketReference]?.id === type.id}
+                onClick={() => updateTicket({ value: type, input: ticketReference })}
               >
                 <>{`${type.name}`}</>
                 <TotalPrice variant="subtitle2">{type.price.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</TotalPrice>

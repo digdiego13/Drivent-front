@@ -15,6 +15,7 @@ const TicketContext = function({ children }) {
   useEffect(() => {
     setTicketInfo({
       userTicketType: { id: 0, name: "Presencial", price: "250" },
+      userHotel: { id: 0, name: "Sem Hotel", price: "0" }
     });
   }, []);
 
