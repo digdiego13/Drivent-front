@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SessionLetter from "../../../layouts/SessionLetter";
 import ShowNoHotel from "./ShowNoHotel";
+import ShowSummary from "./ShowSummary";
 import useApi from "../../../hooks/useApi";
 
 export default function Hotel() {
@@ -12,7 +13,10 @@ export default function Hotel() {
       ...hotelOptions,
       ticketType: "Presencial",
       thereIsHotel: true,
-      paymentDone: false,
+      paymentDone: true,
+      guests: 2,
+      roomNumber: 101,
+      roomType: "Double",
     });
 
     hotel
@@ -24,7 +28,7 @@ export default function Hotel() {
   return (
     <>
       <SessionLetter>Escolha de hotel e quarto</SessionLetter>
-      {hotelOptions.paymentDone ? (<></>) : (<ShowNoHotel hotelOptions={hotelOptions}/>)}
+      {hotelOptions.paymentDone && hotelOptions.thereIsHotel ? (<ShowSummary hotelOptions={hotelOptions}/>) : (<ShowNoHotel hotelOptions={hotelOptions}/>)}
     </>
   );
 }
