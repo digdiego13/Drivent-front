@@ -11,10 +11,11 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 
 export default class PaymentForm extends React.Component {
-  constructor({ ticketInfo, payment }) {
+  constructor({ ticketInfo, payment, setPaymentDone }) {
     super();
     this.ticketInfo = ticketInfo;
     this.payment = payment;
+    this.setPaymentDone = setPaymentDone;
   }
 
   state = {
@@ -37,11 +38,11 @@ export default class PaymentForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.ticketInfo);
     this.payment
       .save(this.ticketInfo)
       .then(() => {
-        alert("Pago");
+        toast("Ingresso pago");
+        this.setPaymentDone(true);
       })
       .catch((error) => {
         if (error.response?.data?.details) {
@@ -68,7 +69,7 @@ export default class PaymentForm extends React.Component {
             number={this.state.number}
           />
 
-          <form onSubmit={this.handleSubmit}>
+          <form id={"creditCard"} onSubmit={this.handleSubmit}>
             <div className="form-group">
               <Input
                 pattern="[\d| ]{16,22}"
@@ -103,6 +104,7 @@ export default class PaymentForm extends React.Component {
                 required
               />
               <InputSmall
+                required
                 type="number"
                 name="cvc"
                 placeholder="CVC"
@@ -110,12 +112,13 @@ export default class PaymentForm extends React.Component {
                 format={formatCVC}
                 onChange={this.handleInputChange}
                 onFocus={this.handleInputFocus}
-                required
               />
             </Flex>
           </form>
         </Flex>
-        <Button onClick={this.handleSubmit}>FINALIZAR PAGAMENTO</Button>
+        <Button form={"creditCard"} type={"submit"}>
+          FINALIZAR PAGAMENTO
+        </Button>
       </div>
     );
   }

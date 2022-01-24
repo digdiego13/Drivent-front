@@ -3,15 +3,19 @@ import styled from "styled-components";
 import { Typography } from "@material-ui/core";
 import PaymentForm from "./CreditCard";
 import useApi from "../../../hooks/useApi";
+import PaymentFinished from "./PaymentFinished";
 
-export default function PaymentStep({ ticketInfo }) {
+export default function PaymentStep({
+  ticketInfo,
+  paymentDone,
+  setPaymentDone,
+}) {
   const { payment } = useApi();
   const { ticketType, thereIsHotel, totalPrice } = ticketInfo;
 
   if (ticketType === undefined) {
     return <h1>Loading</h1>;
   }
-  console.log(ticketType);
   return (
     <>
       <StepLetter>Ingresso escolhido</StepLetter>
@@ -20,9 +24,17 @@ export default function PaymentStep({ ticketInfo }) {
         <TotalPrice variant="subtitle2">{`R$ ${totalPrice}`}</TotalPrice>
       </TicketContainer>
       <StepLetter>Pagamento</StepLetter>
-      <Co>
-        <PaymentForm ticketInfo={ticketInfo} payment={payment}></PaymentForm>
-      </Co>
+      <CreditCard>
+        {paymentDone ? (
+          <PaymentFinished></PaymentFinished>
+        ) : (
+          <PaymentForm
+            ticketInfo={ticketInfo}
+            payment={payment}
+            setPaymentDone={setPaymentDone}
+          ></PaymentForm>
+        )}
+      </CreditCard>
     </>
   );
 }
@@ -42,6 +54,6 @@ const TotalPrice = styled(Typography)`
   color: #898989;
 `;
 
-const Co = styled.div`
+const CreditCard = styled.div`
   width: 500px;
 `;
