@@ -14,7 +14,9 @@ export default function Hotel() {
       ticketType: "Presencial",
       thereIsHotel: true,
       paymentDone: true,
-      guests: 2
+      guests: 2,
+      roomNumber: 101,
+      roomType: "Double",
     });
 
     hotel

@@ -4,16 +4,17 @@ import StepLetter from "../../../layouts/StepLetter";
 import Button from "../../../components/Form/Button";
 
 export default function ShowSummary({ hotelOptions }) {
-  const [roomNumber, setRoomNumber] = useState("");
+  const { guests, roomNumber, roomType } = hotelOptions;
   const [guestsAmount, setGuestAmount] = useState("");
-
+  const [roomInfo, setRoomInfo] = useState("");
+  
   useEffect(() => {
-    setRoomNumber("101 (Double)");
-    hotelOptions.guests === 1
+    setRoomInfo(`${roomNumber} (${roomType})`);
+    guests === 1
       ? setGuestAmount("Somente você")
-      : hotelOptions.guests === 2
+      : guests === 2
         ? setGuestAmount("Você e mais 1 pessoa")
-        : setGuestAmount(`Você e mais ${hotelOptions.guests - 1} pessoas`);
+        : setGuestAmount(`Você e mais ${guests - 1} pessoas`);
   }, []);
 
   return (
@@ -24,7 +25,7 @@ export default function ShowSummary({ hotelOptions }) {
         <HotelName>Driven Resort</HotelName>
         <div>
           <p>Quarto reservado</p>
-          <p>{roomNumber}</p>
+          <p>{roomInfo}</p>
         </div>
         <div>
           <p>Pessoas no seu quarto</p>
