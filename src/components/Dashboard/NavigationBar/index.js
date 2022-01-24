@@ -29,8 +29,8 @@ export default function NavigationBar() {
         </NavigationButton>
       </Link>
 
-      <Link to={`${match.path}/payment`}>
-        <NavigationButton active={isActive(`${match.path}/payment`)}>
+      <Link to={`${match.path}/ticket`}>
+        <NavigationButton active={isActive(`${match.path}/payment`) || isActive(`${match.path}/ticket`)}>
           <FaMoneyBill />
           <span>Pagamento</span>
         </NavigationButton>
