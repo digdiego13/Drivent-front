@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function ShowNoHotel({ hotelOptions } ) {
+export default function ShowNoHotel({ hotelOptions }) {
   return (
     <MessageContainer>
       {hotelOptions.ticketType === "Online" || !hotelOptions.thereIsHotel ? (

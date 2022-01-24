@@ -9,14 +9,15 @@ export default function Hotel() {
     setHotelOptions({
       ...hotelOptions,
       ticketType: "Presencial",
-      thereIsHotel: false
+      thereIsHotel: true,
+      paymentDone: false,
     });
   }, []);
 
   return (
     <>
       <SessionLetter>Escolha de hotel e quarto</SessionLetter>
-      <ShowNoHotel hotelOptions={hotelOptions}/>
+      {hotelOptions.paymentDone ? (<></>) : (<ShowNoHotel hotelOptions={hotelOptions}/>)}
     </>
   );
 }
