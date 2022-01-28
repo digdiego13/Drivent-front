@@ -3,19 +3,27 @@ import SessionLetter from "../../../layouts/SessionLetter";
 import ReserveTicket from "./reserveTicket";
 import TicketCards from "./TicketCards";
 import { useHistory } from "react-router-dom";
+import useApi from "../../../hooks/useApi";
+import { useEffect, useState } from "react";
  
 export default function Ticket() {
   let history = useHistory();
-  //dados mocados que devem vir do servidor
+  const [ticketTypes, setTicketTypes] = useState([]);
   const { ticketInfo } = useTicket();
-  const ticketTypes = [
-    { id: 0, name: "Presencial", price: 250 },
-    { id: 1, name: "Online", price: 100 }
-  ];
-  if (!ticketInfo.userTicketType) {
+  const eventType = useApi();
+  useEffect(() => {
+    eventType
+      .adm
+      .getEventType()
+      .then((res) => setTicketTypes(res.data));
+  }, []);
+  //dados mocados que devem vir do servidor
+
+  if (!ticketTypes.length) {
     return <></>;
   }
   const hotelTypes = () => {
+    if (!ticketInfo.userTicketType) return []; 
     if (ticketInfo.userTicketType.id === 0) {
       return [
         { id: 0, name: "Sem Hotel", price: 0 },
@@ -38,10 +46,7 @@ export default function Ticket() {
       />
       {
         !hotelTypes().length ?
-          <ReserveTicket
-            total={ticketInfo.userTicketType.price}
-            handleSubmit={submitReserve}
-          /> :
+          <></> :
           <TicketCards
             title='Ótimo, agora escolhe sua modalidade de hospedagem'
             ticketTypes={hotelTypes()}
