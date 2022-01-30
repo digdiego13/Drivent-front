@@ -42,11 +42,11 @@ export default function Dashboard() {
             <Route path={`${match.path}/payment`} exact>
               <Payment />
             </Route>  
-          </TicketContext>
 
-          <Route path={`${match.path}/hotel`} exact>
-            <Hotel />
-          </Route>
+            <Route path={`${match.path}/hotel`} exact>
+              <Hotel />
+            </Route>
+          </TicketContext>
 
           <Route path={`${match.path}/activities`} exact>
             <Activities />

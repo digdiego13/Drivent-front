@@ -3,10 +3,19 @@ import styled from "styled-components";
 import StepLetter from "../../../layouts/StepLetter";
 import Button from "../../../components/Form/Button";
 
-export default function ShowSummary({ hotelOptions }) {
+export default function ShowSummary({ hotelOptions, ticketInfo, updateTicket }) {
   const { guests, roomNumber, roomType } = hotelOptions;
   const [guestsAmount, setGuestAmount] = useState("");
   const [roomInfo, setRoomInfo] = useState("");
+
+  const alterReservation = () => {
+    updateTicket({
+      value: {
+        name: "Com Hotel"
+      },
+      input: "userHotel",
+    });
+  };
   
   useEffect(() => {
     setRoomInfo(`${roomNumber} (${roomType})`);
@@ -32,7 +41,7 @@ export default function ShowSummary({ hotelOptions }) {
           <p>{guestsAmount}</p>
         </div>
       </ChosenHotel>
-      <Button type={"button"}>
+      <Button type={"button"} onClick={() => alterReservation()}>
         TROCAR DE QUARTO
       </Button>
     </>
